@@ -1,0 +1,2 @@
+# Deep-Learning-Enhanced-Diagnostic-Systems-Integrating-Convolutional-Neural-Networks-and-Grad-CAM
+This tool is a deep learning-powered web application for diagnosing Monkeypox lesions in skin images. Built with a pre-trained ResNet50 model and Grad-CAM visualizations, the application accurately classifies skin images as Monkeypox or non-Monkeypox, providing confidence scores and heatmaps to highlight areas of focus.
