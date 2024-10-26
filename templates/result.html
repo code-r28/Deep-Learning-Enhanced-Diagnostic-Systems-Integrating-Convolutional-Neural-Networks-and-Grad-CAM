@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Result</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            background-color: #f4f8fa;
+            font-family: 'Roboto', sans-serif;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        h1 {
+            color: #28a745;
+        }
+        .card {
+            border: none;
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        .btn-primary {
+            background-color: #007bff;
+        }
+        .img-fluid {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card p-5 text-center">
+                    <h1><i class="fas fa-diagnoses"></i> Prediction Result</h1>
+                    
+
+                    <h3>
+                        {% if prediction == 'Monkeypox' %}
+                            Dear {{ username }}, you have Monkeypox.
+                        {% else %}
+                            Dear {{ username }}, you do not have Monkeypox.
+                        {% endif %}
+                    </h3>
+                    
+                    <h3>Confidence: {{ confidence }}%</h3>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5><i class="fas fa-image"></i> Your Skin</h5>
+                            <img src="{{ url_for('uploaded_file', filename=image_path.split('/')[-1]) }}" alt="Uploaded Image" class="img-fluid">
+                        </div>
+                        <div class="col-md-6">
+                            <h5><i class="fas fa-thermometer-three-quarters"></i> Heatmap</h5>
+                            <img src="{{ url_for('uploaded_file', filename=heatmap_path.split('/')[-1]) }}" alt="Heatmap Image" class="img-fluid">
+                        </div>
+                    </div>
+                    <br>
+
+
+                    <h4> Next Steps</h4>
+                    <p>
+                        {% if prediction == 'Monkeypox' %}
+                            Based on the prediction, it is advised to consult with a healthcare professional immediately for further testing and confirmation. Avoid contact with others to prevent potential transmission, and monitor symptoms like fever, swollen lymph nodes, or additional lesions.
+                        {% else %}
+                            The result suggests that the lesion is not Monkeypox. However, if symptoms worsen or additional lesions appear, it is advisable to re-consult a healthcare professional. Continue monitoring the symptoms and practice good hygiene.
+                        {% endif %}
+                    </p>
+                    
+
+                    <a href="{{ url_for('static', filename='reports/' + report_path.split('/')[-1]) }}" class="btn btn-primary" download>Download Report <i class="fas fa-file-download"></i></a>
+                    <br><br>
+
+                    <a href="/" class="btn btn-primary">Upload Another Image</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
